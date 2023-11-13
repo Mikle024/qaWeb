@@ -5,6 +5,10 @@ plugins {
 group = "ru.netology.qa"
 version = "1.0-SNAPSHOT"
 
+tasks.withType<JavaCompile> {
+    options.encoding = "UTF-8"
+}
+
 repositories {
     mavenCentral()
 }
