@@ -76,11 +76,24 @@ public class CardApplicationNegativeTest {
         driver.get("http://localhost:9999");
 
         driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Александр");
-        driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("");
+        driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79999999999");
         driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
         driver.findElement(By.cssSelector(".button")).click();
         String actualText = driver.findElement(By.cssSelector("[data-test-id='phone'] .input__sub")).getText().trim();
 
         Assertions.assertEquals("Поле обязательно для заполнения", actualText);
+    }
+
+    @Test
+    public void notShouldSendApplicationWithoutCheckboxTest() {
+        driver.get("http://localhost:9999");
+
+        driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Александр");
+        driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("");
+        driver.findElement(By.cssSelector(".button")).click();
+        String actualText = driver.findElement(By.cssSelector("[data-test-id='agreement'] .checkbox__text")).getText().trim();
+
+        Assertions.assertEquals("Я соглашаюсь с условиями обработки и использования моих персональных данных и разрешаю сделать запрос в бюро кредитных историй",
+                actualText);
     }
 }
